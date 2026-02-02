@@ -33,7 +33,7 @@ test.describe('Playwright Demo Tests', () => {
 
   test('main navigation', async ({ page }) => {
     await expect(page).toHaveTitle(/Playwright/);
- // });
+  });
 })
 // launch options
 // npx playwright test --project="chromium" tests/example.spec.ts
