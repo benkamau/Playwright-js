@@ -34,7 +34,18 @@ test.describe('Playwright Demo Tests', () => {
   test('main navigation', async ({ page }) => {
     await expect(page).toHaveTitle(/Playwright/);
   });
-})
+
+});
+
+
+test('get intro page', async ({ page }) => {
+     await page.goto('https://playwright.dev/');
+
+    // Click the "Get started" link.
+    await page.getByRole('link', { name: 'Get started' }).click();
+    // Expects the URL to contain intro.
+    await expect(page).toHaveURL(/.*intro/);
+  });
 // launch options
 // npx playwright test --project="chromium" tests/example.spec.ts
 // npx playwright test --headed
