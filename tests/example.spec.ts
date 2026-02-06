@@ -1,8 +1,20 @@
 import { test, expect } from '@playwright/test';
 
 test.use({
-  colorScheme: 'light' // or 'light'
+  colorScheme: 'dark' // or 'light'
 }); 
+
+
+
+test.describe('Test BaseURL',() => {
+  test.use({baseURL: undefined})
+  test('test baseURL', async ({ page }) => {
+    await page.goto('/'); // Navigates to https://playwright.dev/docs/intro
+     await page.getByRole('link', { name: 'Doc' }).click();
+    await expect(page).toHaveURL('https://playwright.dev/docs/intro');
+    await expect(page).toHaveTitle(/Installation/);
+  })
+});
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/'); // Navigate to the Playwright website
