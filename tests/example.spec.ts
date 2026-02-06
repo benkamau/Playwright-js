@@ -1,9 +1,12 @@
 import { test, expect } from '@playwright/test';
 
+test.use({
+  colorScheme: 'light' // or 'light'
+}); 
+
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/'); // Navigate to the Playwright website
-
-  // Expect a title "to contain" a substring.
+ 
   await expect(page).toHaveTitle(/Playwright/);
 });
 
@@ -20,8 +23,6 @@ test('get started link', async ({ page }) => {
 
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-
-
 
 });
 
@@ -116,3 +117,105 @@ test('get intro page', async ({ page }) => {
 // Trace run
 // npx playwright test --trace on
 // npx playwright test example.spec.ts --trace on
+
+//Annotations
+//test.skip()  -- to skip a test
+test.describe('chromium only', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chromium only!');
+
+  test.beforeAll(async () => {
+    // This hook is only run in Chromium.
+  });
+
+  test('test 1', async ({ page }) => {
+    // This test is only run in Chromium.
+  });
+
+  test('test 2', async ({ page }) => {
+    // This test is only run in Chromium.
+  });
+});
+
+//test.fail()  -- to mark a test as expected to fail
+
+//test.fixme()  -- to mark a test as needing a fix
+test.beforeEach(async ({ page, isMobile }) => {
+  test.fixme(isMobile, 'Settings page does not work in mobile yet');
+
+ // await page.goto('http://localhost:3000/settings');
+});
+
+test('user profile', async ({ page }) => {
+  //await page.getByText('My Profile').click();
+  // ...
+});
+//test.slow()  -- to mark a test as slow
+//test.only()  -- to run only a specific test
+//test.describe() -- to group tests together
+
+// Group Tests
+test.describe('two tests', () => {
+  test('one', async ({ page }) => {
+    // ...
+  });
+
+  test('two', async ({ page }) => {
+    // ...
+  });
+});
+
+
+//Tag tests
+test('test login page', {
+  tag: '@fast',
+}, async ({ page }) => {
+  // ...
+});
+
+test('test full report @slow', async ({ page }) => {
+  // ...
+});
+
+test.describe('group', {
+  tag: '@report',
+}, () => {
+  test('test report header', async ({ page }) => {
+    // ...
+  });
+
+  test('test full report', {
+    tag: ['@slow', '@vrt'],
+  }, async ({ page }) => {
+    // ...
+  });
+});
+
+// Using  --grep on CLI
+// npx playwright test --grep "@fast"
+
+test('test login page 2', {
+  annotation: {
+    type: 'issue',
+    description: 'https://github.com/microsoft/playwright/issues/23180',
+  },
+}, async ({ page }) => {
+  // ...
+});
+
+test.describe('report tests', {
+  annotation: { type: 'category', description: 'report' },
+}, () => {
+  test('test report header', async ({ page }) => {
+    // ...
+  });
+
+  test('test full report', {
+    annotation: [
+      { type: 'issue', description: 'https://github.com/microsoft/playwright/issues/23180' },
+      { type: 'performance', description: 'very slow test!' },
+    ],
+  }, async ({ page }) => {
+    // ...
+  });
+});
+
