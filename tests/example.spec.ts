@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 test.use({
   colorScheme: 'dark' // or 'light'
@@ -59,76 +59,6 @@ test('get intro page', async ({ page }) => {
     // Expects the URL to contain intro.
     await expect(page).toHaveURL(/.*intro/);
   });
-// launch options
-// npx playwright test --project="chromium" tests/example.spec.ts
-// npx playwright test --headed
-// npx playwright test tests/example.spec.ts --reporter=html
-// npx playwright show-report  
-// npx playwright test --ui
-// npx playwright test --last-failed     --run only the test that failed in the previous run
-
-//Basic actions
-// locator.check()  -- for checkboxes
-// locator.uncheck()  -- for checkboxes
-// locator.selectOption()  -- for dropdowns
-// locator.fill()  -- for input fields
-// locator.type()  -- for input fields
-// locator.press()  -- for keyboard actions
-// locator.hover()  -- for mouse hover actions
-// locator.scrollIntoViewIfNeeded()  -- to scroll to an element
-// locator.screenshot()  -- to take a screenshot of an element
-// locator.focus()  -- to focus on an element
-// locator.setInputFiles()  -- to upload files
-// locator.clear()  -- to clear input fields
-// locator.evaluate()  -- to run JavaScript code within the browser context
-
-//Assertions
-// expect(locator).toBeVisible()  -- to check visibility
-// expect(locator).toBeHidden()  -- to check if hidden
-// expect(locator).toHaveText()  -- to check text content
-// expect(locator).toHaveAttribute()  -- to check attributes
-// expect(locator).toHaveClass()  -- to check CSS classes
-// expect(locator).toHaveCount()  -- to check number of elements
-// expect(locator).toBeEnabled()  -- to check if enabled
-// expect(locator).toBeDisabled()  -- to check if disabled
-// expect(locator).toBeChecked()  -- to check if checkbox/radio is checked
-// expect(locator).toBeEmpty()  -- to check if empty
-// expect(page).toHaveURL()  -- to check the current URL
-// expect(locator).toBeTruthy()  -- to check if truthy -- does not need await as it is not a promise
-
-//test hooks
-// test.beforeEach(async ({ page }) => {
-//   // Code to run before each test
-// });
-
-// test.afterEach(async ({ page }) => {
-//   // Code to run after each test
-// });
-
-// test.beforeAll(async () => {
-//   // Code to run before all tests
-// });
-
-// test.afterAll(async () => {
-//   // Code to run after all tests
-// });
-
-//Codegen command
-// npx playwright codegen https://playwright.dev/
-// This command will open a browser and generate code for the actions you perform on the specified URL.
-
-//debugging
-// npx playwright test --debug
-// npx playwright test example.spec.ts --debug   --- debug a specific test file
-// npx playwright test example.spec.ts:10 --debug  -- debug a specifica test by line number
-
-
-//Test Reports
-// npx playwright show-report
-
-// Trace run
-// npx playwright test --trace on
-// npx playwright test example.spec.ts --trace on
 
 //Annotations
 //test.skip()  -- to skip a test
@@ -231,3 +161,32 @@ test.describe('report tests', {
   });
 });
 
+/// Run tests sequentially
+test.describe.configure({mode: 'serial'}) // to run tests in a describe block sequentially instead of parallel
+
+let page: Page;
+
+test.beforeAll(async ({ browser }) => {
+  page = await browser.newPage();
+});
+
+test.afterAll(async () => {
+  await page.close();
+});
+
+test('Run First Test', async () => {
+  // This test will use the same page instance.
+  await page.goto('https://playwright.dev/');
+});
+
+test('Run Second Test', async () => {
+  // This test will use the same page instance.
+  await page.goto('https://playwright.dev/docs/intro');
+});
+
+//opt out of parallel tests
+test.describe('Run un parallel tests with other describes', () => {
+ test.describe.configure({mode: 'default'});
+ test(' in order test 1', async ({ page }) => {});
+ test(' in order test 2', async ({ page }) => {});
+});
