@@ -190,3 +190,19 @@ test.describe('Run un parallel tests with other describes', () => {
  test(' in order test 1', async ({ page }) => {});
  test(' in order test 2', async ({ page }) => {});
 });
+
+//Passing Environment Variables
+// test(`example test`, async ({ page }) => {
+//   // ...
+//   await page.getByLabel('User Name').fill(process.env.USER_NAME);
+//   await page.getByLabel('Password').fill(process.env.PASSWORD);
+// });
+
+//Retries using worker processes
+test.describe('Retries using worker processes', () => {
+  test.beforeAll(async () => { /* ... */ });
+  test('first good', async ({ page }) => { /* ... */ });
+  test('second flaky', async ({ page }) => { /* ... */ });
+  test('third good', async ({ page }) => { /* ... */ });
+  test.afterAll(async () => { /* ... */ });
+});

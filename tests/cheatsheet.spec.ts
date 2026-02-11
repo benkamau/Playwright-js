@@ -69,3 +69,19 @@
 // npx playwright test --trace on
 // npx playwright test example.spec.ts --trace on
 
+//Passing Environment Variables
+// test(`example test`, async ({ page }) => {
+//   // ...
+//   await page.getByLabel('User Name').fill(process.env.USER_NAME);
+//   await page.getByLabel('Password').fill(process.env.PASSWORD);
+// });
+
+
+//Sharding is a technique to split test files into smaller groups and run them in parallel across multiple machines or processes. This can significantly reduce the overall 
+// test execution time, especially for large test suites. Playwright does not have built-in support for sharding, but you can achieve it by using a test runner like Jest or Mocha in combination with Playwright.
+//Sharding in Playwright means splitting your tests into smaller parts called "shards". Each shard is like a separate job that can run independently.
+// sharding between multiple machines:
+// npx playwright test --shard=1/4
+// npx playwright test --shard=2/4
+// npx playwright test --shard=3/4
+// npx playwright test --shard=4/4

@@ -21,8 +21,12 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  /* Reporter to use. in HTML, JSON, JUnit See https://playwright.dev/docs/test-reporters */
+   reporter:[
+    ['html'],
+    ['json',{outputFile:'test-results/Report.json'}],
+    ['junit',{outputFile:'test-results/Report.xml'}],
+   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -36,6 +40,8 @@ export default defineConfig({
     
     // Video recording for each test
     video: 'retain-on-failure',
+
+
   },
 
   /* Configure projects for major browsers */
@@ -54,7 +60,11 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-    
+    {
+      name: 'jiji Tests',
+      testMatch: 'tests/test-1.spec.ts',
+      retries: 3,
+    }
     // {
     //   name: 'Mobile Safari',
     //   use: {
