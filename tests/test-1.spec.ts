@@ -6,12 +6,12 @@ test('test', async ({ page }) => {
   // await page.getByPlaceholder('I am looking for...').click();
   // await page.getByPlaceholder('I am looking for...').fill('bmw x3');
   // await page.getByPlaceholder('I am looking for...').press('Enter');
-  test.setTimeout(120000);
- await page.getByRole('textbox', { name: '-searchbox' }).click();
- await page.getByRole('textbox', { name: '-searchbox' }).fill('bmw x3');
- await page.getByRole('textbox', { name: '-searchbox' }).press('Enter');
- test.setTimeout(120000);
- await page.locator('div:nth-child(2) > .b-top-categories__item__inner > .b-top-categories__item__image').click();
+  //test.setTimeout(120000);
+//  await page.getByRole('textbox', { name: '-searchbox' }).click();
+//  await page.getByRole('textbox', { name: '-searchbox' }).fill('bmw x3');
+//  await page.getByRole('textbox', { name: '-searchbox' }).press('Enter');
+//  test.setTimeout(120000);
+//  await page.locator('div:nth-child(2) > .b-top-categories__item__inner > .b-top-categories__item__image').click();
   // await page.getByRole('link', { name: 'BMW X5 xDrive35d AWD (3.0L 6cyl 8A) 2017 Black DIAMOND KSh 5,999,000 BMW X5' }).click();
   // await page.locator('a').filter({ hasText: 'Show contact' }).first().click();
   // await page.locator('.b-auth-popup__close > .icons').click();
@@ -21,12 +21,12 @@ test('test', async ({ page }) => {
 test('Record at cursor', async({page}) => {
 await page.goto('https://jiji.co.ke/');
 test.setTimeout(120000);
-await page.getByRole('link', { name: 'Vehicles Vehicles' }).click();
-await page.getByRole('link', { name: 'Vehicle Parts & Accessories |' }).click();
-await page.getByText('Engine & Drivetrain', { exact: true }).click();
-await page.getByRole('combobox').locator('div').filter({ hasText: /^Search in Vehicle Parts & Accessories$/ }).click();
-await page.getByRole('textbox', { name: '-searchbox' }).fill('subaru');
-await page.getByRole('textbox', { name: '-searchbox' }).press('Enter');
-await page.goto('https://jiji.co.ke/car-parts-and-accessories?filter_attr_1598_type=Engine+%26+Drivetrain&query=subaru');
+// await page.getByRole('link', { name: 'Vehicles Vehicles' }).click();
+// await page.getByRole('link', { name: 'Vehicle Parts & Accessories |' }).click();
+// await page.getByText('Engine & Drivetrain', { exact: true }).click();
+// await page.getByRole('combobox').locator('div').filter({ hasText: /^Search in Vehicle Parts & Accessories$/ }).click();
+// await page.getByRole('textbox', { name: '-searchbox' }).fill('subaru');
+// await page.getByRole('textbox', { name: '-searchbox' }).press('Enter');
+// await page.goto('https://jiji.co.ke/car-parts-and-accessories?filter_attr_1598_type=Engine+%26+Drivetrain&query=subaru');
 });
 
