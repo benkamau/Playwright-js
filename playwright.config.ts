@@ -21,6 +21,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+
+  
+  /* General Timeout for the test*/
+  //  timeout: 120_000,
+ // expect:{ timeout: 5000 },
+
+
   /* Reporter to use. in HTML, JSON, JUnit See https://playwright.dev/docs/test-reporters */
    reporter:[
     ['html'],
@@ -98,4 +105,22 @@ export default defineConfig({
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+
+  /*Running multiple web servers*/
+  //   webServer: [
+  //   {
+  //     command: 'npm run start',
+  //     url: 'http://localhost:3000',
+  //     name: 'Frontend',
+  //     timeout: 120 * 1000,
+  //     reuseExistingServer: !process.env.CI,
+  //   },
+  //   {
+  //     command: 'npm run backend',
+  //     url: 'http://localhost:3333',
+  //     name: 'Backend',
+  //     timeout: 120 * 1000,
+  //     reuseExistingServer: !process.env.CI,
+  //   }
+  // ],
 });

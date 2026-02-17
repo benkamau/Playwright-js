@@ -1,16 +1,17 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page, devices } from '@playwright/test';
 
 test.use({
   colorScheme: 'dark' // or 'light'
 }); 
 
+//test.use(devices['iPhone 13']); // to run tests in mobile view
 
 
 test.describe('Test BaseURL',() => {
   test.use({baseURL: undefined})
   test('test baseURL', async ({ page }) => {
     await page.goto('/'); // Navigates to https://playwright.dev/docs/intro
-     await page.getByRole('link', { name: 'Doc' }).click();
+    await page.getByRole('link', { name: 'Doc' }).click();
     await expect(page).toHaveURL('https://playwright.dev/docs/intro');
     await expect(page).toHaveTitle(/Installation/);
   })
@@ -206,3 +207,36 @@ test.describe('Retries using worker processes', () => {
   test('third good', async ({ page }) => { /* ... */ });
   test.afterAll(async () => { /* ... */ });
 });
+
+//set timeout for a single test 
+test('slow test', async ({ page }) => {
+  test.slow(); // Easy way to triple the default timeout
+  await page.goto('https://playwright.dev/');
+});
+
+test('very slow test', async ({ page }) => {
+  test.setTimeout(120_000);
+  await page.goto('https://playwright.dev/');
+});
+
+// Change timeout from a beforeEach hook
+test.beforeEach(async ({ page }, testInfo) => {
+  // Extend timeout for all tests running this hook by 30 seconds.
+  testInfo.setTimeout(testInfo.timeout + 30_000);
+  
+});
+
+//change timeout for beforeAll and afterAll hooks
+test.describe('timeout for beforeAll and afterAll hooks', () => {
+test.beforeAll(async () => {
+  // Set timeout for this hook.
+  test.setTimeout(60000);
+})
+});
+
+//specify expect timeout for a single assertion
+
+// test('example', async ({ page }) => {
+//   await expect(locator).toHaveText('hello', { timeout: 10_000 });
+// });
+
